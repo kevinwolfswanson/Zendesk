@@ -70,6 +70,17 @@ curl "https://<api-id>.execute-api.us-east-1.amazonaws.com/prod?username=agent@e
 - Getting 500: verify NIC credentials and region/version; check CloudWatch logs for the error message.
 - Need 200 vs 204 counts: query the access log group and filter by status.
 
+Example (last 15 minutes):
+
+aws logs filter-log-events \
+  --log-group-name /aws/apigateway/cxone-bridge-api \
+  --start-time <epoch_ms_start> \
+  --end-time <epoch_ms_end> \
+  --query "[length(events[?contains(message, '\"status\":\"200\"')]), length(events[?contains(message, '\"status\":\"204\"')]), length(events)]" \
+  --output text
+
+Output format: <count_200> <count_204> <total>
+
 ## Deploy
 
 Zip the contents of `lambda/cxone-bridge/` and update the Lambda code via AWS Console or CLI.
