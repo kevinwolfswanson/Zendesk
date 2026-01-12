@@ -19,6 +19,14 @@ Responses:
 - 401 Unauthorized: API key missing or invalid
 - 500 Internal Server Error: upstream or unexpected error
 
+## How It Works
+
+1) Validate API key (if configured).
+2) Fetch a NICE access token and cache it in memory for warm invocations.
+3) Look up the agent by username/email to get the agentId.
+4) Query active contacts for the agent and select the most recent answered call.
+5) Extract a phone number from the contact and return it (or 204 if none).
+
 ## Environment Variables
 
 Required:
@@ -36,6 +44,17 @@ Optional:
 - Uses a cached NICE token per warm Lambda container to reduce auth calls.
 - Returns 204 if no answered call is found or if a phone number cannot be extracted.
 - When LOG_REQUESTS is true, phone numbers and contact IDs are logged; treat logs as sensitive.
+
+## Monitoring
+
+- Lambda metrics: Invocations, Errors, Throttles, Duration in CloudWatch.
+- API Gateway access logs (HTTP API): status codes and request details.
+  - Log group: /aws/apigateway/cxone-bridge-api
+
+## Example
+
+curl "https://<api-id>.execute-api.us-east-1.amazonaws.com/prod?username=agent@example.com" \
+  -H "x-api-key: <api-key>"
 
 ## Deploy
 
