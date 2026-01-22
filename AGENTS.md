@@ -8,6 +8,7 @@ This repo is structured around a few deliberate choices:
 - **Small, composable integrations**: each app/Lambda has a narrow responsibility so changes are isolated and easier to test.
 - **Secrets stay out of the browser and git**: tokens/keys live in Zendesk secure settings and/or AWS Secrets Manager.
 - **Least privilege by default**: IAM roles and API keys should only grant what each integration needs.
+- **Single source of truth**: GitHub is canonical; the local clone under `C:\Users\kevin.wolf\Zendesk` is the working copy. Avoid editing OneDrive copies.
 
 ## Project Structure & Module Organization
 

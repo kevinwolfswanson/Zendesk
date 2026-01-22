@@ -2,6 +2,12 @@
 
 This repo contains Zendesk private apps and supporting AWS Lambdas used by Swanson Health Products.
 
+## Source of Truth
+
+GitHub is the canonical source of truth for all app and Lambda code. Use the local clone at
+`C:\Users\kevin.wolf\Zendesk` as your working copy and always `git push` after changes.
+Do not edit or deploy from OneDrive copies to avoid drift.
+
 ## High-level Overview
 
 These apps are intentionally built to improve agent speed and consistency inside Zendesk without expanding Zendesk’s trusted surface area:
